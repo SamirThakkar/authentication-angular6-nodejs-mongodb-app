@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="container page">
+    <div class="row col-md-6" style="margin: 0px">
+      <h2 *ngIf="!isEditMode">Add Product</h2>
+      <h2 *ngIf="isEditMode">Edit Product</h2>
+
+    </div>
+    <form #ProductForm="ngForm" novalidate class='form-horizontal'
+          [ngClass]="{'ng-submitted':ProductForm.submitted}">
+
+      <div class="form-group col-md-6">
+        <label>Product Name<span style="color: red">*</span></label>
+        <input class="form-control" type="text" name="productName" id="productName" [(ngModel)]="ProductObj.ProductName"
+               #productName="ngModel" placeholder="Product name" required>
+        <span *ngIf="productName.invalid && (productName.dirty || ProductForm.submitted)">
+        <span class="alert-danger error-msg" *ngIf="productName.errors.required">
+          Please provide product name.
+        </span>
+      </span>
+      </div>
+      <div class="form-group col-md-6">
+        <label>Upload Product Image<span style="color: red">*</span></label>
+        <input class="form-control" type="file" name="productImage" id="productImage"
+               (change)="getProductImage($event)"
+               required>
+        <img *ngIf="ProductObj.ProductImage" src="/server/{{ProductObj.ProductImage}}" style="width: 100px;height: 100px;margin-top: 10px;">
+        <span class="alert-danger error-msg" *ngIf="noFileSelected">
+          Please upload product image.
+        </span>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>Upload More Product Images<span style="color: red">*</span></label>
+        <input class="form-control" type="file" name="productMoreImage" id="productMoreImage"
+               (change)="getProductsMoreImage($event)" multiple required>
+        <div class="row col-md-6">
+          <div class="more-files" *ngFor="let files of moreUploadedFiles">
+            <img *ngIf="moreUploadedFiles.length" src='/server/{{files.path}}' style="width:150%">
+          </div>
+        </div>
+        <span class="alert-danger error-msg" *ngIf="noMoreFileSelected">
+          Please upload more product images.
+        </span>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>Product Price<span style="color: red">*</span></label>
+        <input class="form-control" type="text" name="productPrice" id="productPrice" [(ngModel)]="ProductObj.ProductPrice"
+               #productPrice="ngModel" placeholder="Product price" [pattern]="numberRegex" required>
+        <span *ngIf="productPrice.invalid && (productPrice.dirty || ProductForm.submitted)">
+        <span class="alert-danger error-msg" *ngIf="productPrice.errors.required">
+          Please provide product price.
+        </span>
+          <span class="alert-danger error-msg" *ngIf="productPrice.errors.pattern">
+            Please provide valid price.
+          </span>
+        </span>
+      </div>
+
+      <div class="row col-md-6" style="margin: 0px">
+        <button class="btn btn-success" type="submit" *ngIf="!isEditMode" (click)="addProduct(ProductForm)">Add</button>&nbsp;&nbsp;
+        <button class="btn btn-success" type="submit" *ngIf="isEditMode" (click)="updateProduct(ProductForm)">Update</button>&nbsp;&nbsp;
+        <button class="btn btn-default" type="button" [routerLink]="['/product/list']">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

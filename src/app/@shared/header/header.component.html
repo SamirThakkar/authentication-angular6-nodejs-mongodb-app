@@ -1,0 +1,7 @@
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand"  *ngIf="authService.loggedIn()" href="javascript:void(0)" (click)="onLogoutClick()">Logout</a>
+        </div>
+    </div>
+</nav>

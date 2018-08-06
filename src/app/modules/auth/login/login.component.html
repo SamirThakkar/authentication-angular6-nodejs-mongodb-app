@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="container page">
+        <div class="row col-md-6" style="margin: 0px">
+            <h2>Log In</h2>
+        </div>
+        <div class="alert alert-danger" *ngIf="isErrorMessage">{{errorMessage}}</div>
+        <form #LoginForm="ngForm" novalidate class='form-horizontal'
+              [ngClass]="{'ng-submitted':LoginForm.submitted}">
+
+            <div class="form-group col-md-6">
+                <label>Email<span style="color: red">*</span></label>
+                <input class="form-control" type="text" name="email" id="email" [(ngModel)]="Email"
+                       #email="ngModel" [pattern]="EMAIL_REGEX" placeholder="Email" required>
+                <span *ngIf="email.invalid && (email.dirty || LoginForm.submitted)">
+        <span class="alert-danger error-msg" *ngIf="email.errors.required">
+          Please provide email.
+        </span>
+                    <span class="alert-danger error-msg" *ngIf="email.errors.pattern">
+                        Please provide valid email.
+                    </span>
+        </span>
+            </div>
+                <div class="form-group col-md-6">
+                    <label>Password<span style="color: red">*</span></label>
+                    <input class="form-control" type="password" name="password" id="password"
+                           [(ngModel)]="Password"
+                           #password="ngModel" placeholder="Password" required>
+                    <span *ngIf="password.invalid && (password.dirty || LoginForm.submitted)">
+            <span class="alert-danger error-msg" *ngIf="password.errors.required">
+                Please provide password.
+                </span>
+
+                </span>
+                </div>
+            <div class="form-group clearfix">
+                <div class="remember-link" style="margin-left:15px">
+                    <input type="checkbox" id="remember"  (change)="changeRememberMe()" [checked]="rememberMe" />
+                    <label for="remember" class="checkbox">Remember Me</label></div>
+            </div>
+                <div class="row col-md-6" style="margin: 0px">
+                    <button class="btn btn-success" type="submit" (click)="Login(LoginForm)">
+                        Log In
+                    </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button class="btn btn-default" type="button" [routerLink]="['/register']">Sign up</button>
+                </div>
+        </form>
+    </div>
+</div>

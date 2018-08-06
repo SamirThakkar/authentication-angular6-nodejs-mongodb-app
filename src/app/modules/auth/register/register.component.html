@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="container page">
+        <div class="row col-md-6" style="margin: 0px">
+            <h2>Register</h2>
+        </div>
+        <div class="alert alert-danger" *ngIf="isErrorMessage">{{errorMessage}}</div>
+        <form #RegisterForm="ngForm" novalidate class='form-horizontal'
+              [ngClass]="{'ng-submitted':RegisterForm.submitted}">
+
+            <div class="form-group col-md-6">
+                <label>Email<span style="color: red">*</span></label>
+                <input class="form-control" type="text" name="email" id="email" [(ngModel)]="Email"
+                       #email="ngModel" [pattern]="EMAIL_REGEX" placeholder="Email" required>
+                <span *ngIf="email.invalid && (email.dirty || RegisterForm.submitted)">
+        <span class="alert-danger error-msg" *ngIf="email.errors.required">
+          Please provide email.
+        </span>
+                    <span class="alert-danger error-msg" *ngIf="email.errors.pattern">
+                        Please provide valid email.
+                    </span>
+        </span>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Password<span style="color: red">*</span></label>
+                <input class="form-control" type="password" name="password" id="password"
+                       [(ngModel)]="Password" (input)="passwordInputValues()"
+                       #password="ngModel" placeholder="Password" required>
+                <span *ngIf="password.invalid && (password.dirty || RegisterForm.submitted)">
+            <span class="alert-danger error-msg" *ngIf="password.errors.required">
+                Please provide password.
+                </span>
+
+                </span>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Confirm Password<span style="color: red">*</span></label>
+                <input class="form-control" type="password" name="confirmpassword" id="confirmpassword"
+                       [(ngModel)]="ConfirmPassword" (input)="passwordInputValues()"
+                       #comfirmpassword="ngModel" placeholder="Password" required>
+                <span *ngIf="comfirmpassword.invalid && (comfirmpassword.dirty || RegisterForm.submitted)">
+            <span class="alert-danger error-msg" *ngIf="comfirmpassword.errors.required">
+                Please provide confirm password.
+                </span>
+
+                </span>
+            </div>
+            <div class="alert alert-danger" *ngIf="!isPasswordMatch">Your password did not match.</div>
+            <div class="alert alert-success" *ngIf="successMessage">{{successMessage+' You can now login with registered email.'}}</div>
+            <div class="row col-md-6" style="margin: 0px">
+                <button class="btn btn-success" type="submit" (click)="register(RegisterForm)">
+                    Sign up
+                </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-default" type="button" [routerLink]="['/login']">Log In</button>
+            </div>
+        </form>
+    </div>
+</div>

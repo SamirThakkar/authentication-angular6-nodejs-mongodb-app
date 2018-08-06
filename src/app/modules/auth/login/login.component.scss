@@ -1,0 +1,19 @@
+.remember-link input{ display: none;}
+.remember-link label{ padding-left: 33px;}
+.remember-link label::before{
+  width:24px;
+  height: 25px;
+  margin: 0 8px 0 0;
+  background:url(../../../../assets/img/checkbox.png) no-repeat;
+  display: block;
+  clear: left;
+  float: left;
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+}
+.remember-link label.checked::before{ background-position: 0 -50px;}
+.remember-link{ float: left; color: #989A9D; font-size: 16px;	line-height: 25px; position:relative; }
+.remember-link input{ width: 20px; margin-left: 2px; margin-right: 8px;}
